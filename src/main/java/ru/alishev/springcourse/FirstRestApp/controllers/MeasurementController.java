@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import ru.alishev.springcourse.FirstRestApp.dto.MeasurementDTO;
+import ru.alishev.springcourse.FirstRestApp.dto.MeasurementsResponse;
 import ru.alishev.springcourse.FirstRestApp.models.Measurement;
 import ru.alishev.springcourse.FirstRestApp.services.MeasurementService;
 import ru.alishev.springcourse.FirstRestApp.util.*;
@@ -35,9 +36,9 @@ public class MeasurementController {
     }
 
     @GetMapping("/all")
-    public List<MeasurementDTO> findAll() {
-        return measurementService.findAll().stream().map(this::convertToMeasurementDTO)
-                .collect(Collectors.toList());
+    public MeasurementsResponse findAll() {
+        return new MeasurementsResponse(measurementService.findAll().stream().map(this::convertToMeasurementDTO)
+                .collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
